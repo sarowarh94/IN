@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কাজী টেলিকম</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+        h2 {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 12px 15px;
+            width: 300px;
+            border: 2px solid #007bff;
+            border-radius: 25px;
+            font-size: 16px;
+            font-family: 'Hind Siliguri', sans-serif; /* ফন্ট যুক্ত করা হয়েছে */
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ced4da;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .copy-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .copy-button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .copy-button:active {
+            transform: scale(0.95);
+        }
+        @media (max-width: 500px) {
+            input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>কাজী টেলিকম</h1>
+    <h2>আপনার জন্য পরিষ্কার আকাশ ও পরিষ্কার মন কামনা করছি</h2>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="নাম বা নাম্বার অনুসন্ধান করুন" onkeyup="searchFunction()">
+    </div>
+    <table id="nameList">
+        <thead>
+            <tr>
+                <th>নাম</th>
+                <th>সোর্স</th>
+                <th>নাম্বার</th>
+                <th>কপি</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>সারোয়ার হোসাইন</td>
+                <td>বিকাশ</td>
+                <td>01960523052</td>
+                <td><button class="copy-button" onclick="copyToClipboard('01960523052')">Copy</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function searchFunction() {
+            const input = document.getElementById('search').value.toLowerCase();
+            const rows = document.querySelectorAll('#nameList tbody tr');
+
+            rows.forEach(row => {
+                const nameText = row.cells[0].textContent.toLowerCase();
+                const numberText = row.cells[2].textContent.toLowerCase();
+                const shouldDisplay = nameText.includes(input) || numberText.includes(input);
+                row.style.display = shouldDisplay ? '' : 'none';
+            });
+        }
+
+        function copyToClipboard(number) {
+            navigator.clipboard.writeText(number).then(() => {
+                alert(`Copied: ${number}`);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
